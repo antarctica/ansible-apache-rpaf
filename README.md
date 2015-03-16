@@ -7,6 +7,7 @@ Configures Apache to use the Reverse Proxy Add Forward module
 ## Overview
 
 * Restarts Apache to pick up RPAF module
+* Adds common configuration directives to default apache virtualhost
 
 ## Availability
 
@@ -19,6 +20,27 @@ This role is designed for internal use but if useful can be shared publicly.
 #### BAS Ansible Role Collection (BARC)
 
 * `apache`
+
+### Variables
+
+* `apache_rpaf_option_enable`
+    * If "On" the RPAF engine will be enabled
+    * See the [module documentation](https://github.com/gnif/mod_rpaf#configuration-directives) for more information.
+    * You **MUST** quote this value or Ansible will evaluate this value to a "True" or "False" which are not valid.
+    * Allowed values: "on" or "off".
+    * Default: "On"
+* `apache_rpaf_option_set_hostname`
+    * Update Update vhost name so ServerName & ServerAlias work
+    * See the [module documentation](https://github.com/gnif/mod_rpaf#configuration-directives) for more information.
+    * You **MUST** quote this value or Ansible will evaluate this value to a "True" or "False" which are not valid.
+    * Allowed values: "on" or "off".
+    * Default: "On"
+* `apache_rpaf_option_proxy_ips`
+    * What IPs & bitmaksed subnets to adjust requests for
+    * See the [module documentation](https://github.com/gnif/mod_rpaf#configuration-directives) for more information.
+    * By default this variable will be the IPv4 address of the local interface.
+    * You **SHOULD NOT** need to change this value.
+    * Default: "{{ ansible_lo.ipv4.address }}"
 
 ## Contributing
 
