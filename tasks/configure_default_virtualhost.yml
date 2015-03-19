@@ -1,29 +1,16 @@
 ---
 
+- name: create module config file
+  template: src=etc/apache2/conf-available/mod-rpaf.conf.j2 dest="{{ apache_rpaf_config_file_path }}"
+
 - name: add module configuration to default apache virtual host
-  lineinfile: dest=/etc/apache2/sites-available/default line="{{ item }}" insertbefore="^</VirtualHost>" state=present
-  with_items:
-    - "\n"
-    - "    # Reverse Proxy Add Forward (RPAF) configuration"
-    - "    <IfModule mod_rpaf.c>"
-    - "        RPAFenable {{ apache_rpaf_option_enable }}"
-    - "        RPAFsethostname {{ apache_rpaf_option_set_hostname }}"
-    - "        RPAFproxy_ips {{ apache_rpaf_option_proxy_ips }}"
-    - "    </IfModule>"
+  lineinfile: dest=/etc/apache2/sites-available/default line="    include {{ apache_rpaf_config_file_path }}" insertafter="# Marker - Apache module configuration" state=present
   notify:
     - Restart Apache
   when: ansible_distribution_version == "12.04"
 
-- name: add module configuration to default apache virtual host - module start block
-  lineinfile: dest=/etc/apache2/sites-available/000-default.conf line="{{ item }}" insertbefore="^</VirtualHost>" state=present
-  with_items:
-    - "\n"
-    - "    # Reverse Proxy Add Forward (RPAF) configuration"
-    - "    <IfModule mod_rpaf.c>"
-    - "        RPAFenable {{ apache_rpaf_option_enable }}"
-    - "        RPAFsethostname {{ apache_rpaf_option_set_hostname }}"
-    - "        RPAFproxy_ips {{ apache_rpaf_option_proxy_ips }}"
-    - "    </IfModule>"
+- name: add module configuration to default apache virtual host
+  lineinfile: dest=/etc/apache2/sites-available/000-default.conf line="    include {{ apache_rpaf_config_file_path }}" insertafter="# Marker - Apache module configuration" state=present
   notify:
     - Restart Apache
   when: ansible_distribution_version == "14.04"

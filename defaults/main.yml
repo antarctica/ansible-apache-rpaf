@@ -1,5 +1,7 @@
 ---
 
+apache_rpaf_config_file_path: /etc/apache2/conf-available/mod-rpaf.conf
+
 apache_rpaf_option_enable: "On"
 apache_rpaf_option_set_hostname: "On"
 apache_rpaf_option_proxy_ips: "{{ ansible_lo.ipv4.address }}"

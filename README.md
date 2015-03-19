@@ -7,7 +7,7 @@ Configures Apache to use the Reverse Proxy Add Forward module
 ## Overview
 
 * Restarts Apache to pick up RPAF module
-* Adds common configuration directives to default apache virtualhost
+* Creates an includes file containing module configuration and loads this within the default virtual host
 
 ## Availability
 
@@ -23,6 +23,10 @@ This role is designed for internal use but if useful can be shared publicly.
 
 ### Variables
 
+* `apache_rpaf_config_file_path`
+    * Path consisting of directory and file name for the file that will contain this module's configuration options
+    * This variable **MUST** be a valid UNIX path and **SHOULD NOT** exist.
+    * Default: "/etc/apache2/conf-available/mod-rpaf.conf"
 * `apache_rpaf_option_enable`
     * If "On" the RPAF engine will be enabled
     * See the [module documentation](https://github.com/gnif/mod_rpaf#configuration-directives) for more information.
