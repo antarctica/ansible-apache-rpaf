@@ -1,5 +1,9 @@
 # Apache RPAF (`apache-rpaf`) - Changelog
 
+## 0.3.1 - March 2015
+
+* Uses the apache handler from the apache role rather than duplicating
+
 ## 0.3.0 - March 2015
 
 * Adds support for common module settings using an include file
